@@ -1,6 +1,0 @@
-f7df046f374e94a46573c89c500fd0d416da4e10 .terraform.lock.hcl
-b9ac071eb6387e85c6e4d5df995839696db0e513 .terraform/providers/registry.terraform.io/hashicorp/aws/5.76.0/windows_amd64/LICENSE.txt
-3c64638cc75aa6fc4df1002d65135a6442ae7054 .terraform/providers/registry.terraform.io/hashicorp/aws/5.76.0/windows_amd64/terraform-provider-aws_v5.76.0_x5.exe
-a39a769e4243490f291a43185595c81b4e9dd0da main.tf
-3b4dc8b9948d9f61002cf708d794e6879255f4c1 terraform.tfstate
-dbd4c89b991db24a5c0f4863861a804f0572d982 terraform.tfstate.backup
