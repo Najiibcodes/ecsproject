@@ -1,30 +1,20 @@
-# Using Node as the base image with the latest version
-FROM node:18-alpine
+FROM node:18-alpine AS build
 
-
-# Running the app
 WORKDIR /app
 
+COPY package*.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-#Installing and copying the json packages with the apps contents
-COPY package*.json ./
-
-
-#Installing content within the yarn content
-COPY yarn.lock ./
-
-
-#Installing yarn and executing the commands in the container during the build process
-RUN yarn install
-
-
-#Copying all files from the host
 COPY . .
+RUN yarn build
 
+FROM node:18-alpine
 
-#Exposing the application port
+WORKDIR /app
+
+COPY --from=build /app/build ./build
+COPY --from=build /app/node_modules ./node_modules
+
 EXPOSE 3000
 
-
-#Specifying the command to run the application
-CMD ["yarn", "start"]
+CMD ["node", "build/index.js"]
