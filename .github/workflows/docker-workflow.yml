@@ -1,4 +1,4 @@
-name: Docker Build, Scan, and Push
+name: Docker Workflow
 
 on:
   push:
@@ -11,37 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Login to Amazon ECR to authenticate with the private registry
       - name: Log in to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          mask-password: true # Ensures that the ECR password is masked in the logs
+          mask-password: true
+          region: eu-west-2
 
-      # Step 3: Build the Docker image locally
       - name: Build Docker Image
         run: |
           docker build -t ecsproject-repo .
 
-      # Step 4: Run a Trivy scan to check for vulnerabilities in the Docker image
       - name: Run Trivy Vulnerability Scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ecsproject-repo:latest # Targets the newly built image
-          format: table # Provides a readable output format
-          ignore-unfixed: true # Ignores vulnerabilities without available fixes
-          severity: HIGH,CRITICAL # Focuses on severe vulnerabilities
+          image-ref: ecsproject-repo:latest
+          format: table
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
 
-      # Step 5: Tag the Docker image for ECR
       - name: Tag Docker Image
         run: |
           docker tag ecsproject-repo:latest 156041431760.dkr.ecr.eu-west-2.amazonaws.com/ecsproject-repo:latest
 
-      # Step 6: Push the tagged image to Amazon ECR
       - name: Push Docker Image to ECR
         run: |
           docker push 156041431760.dkr.ecr.eu-west-2.amazonaws.com/ecsproject-repo:latest
