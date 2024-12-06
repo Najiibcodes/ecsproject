@@ -19,7 +19,8 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         with:
           mask-password: true
-          region: eu-west-2
+        env:
+          AWS_DEFAULT_REGION: eu-west-2
 
       - name: Build Docker Image
         run: |
