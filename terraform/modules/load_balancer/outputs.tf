@@ -12,3 +12,8 @@ output "target_group_arn" {
   description = "ARN of the Target Group"
   value       = aws_lb_target_group.ecs_tg.arn
 }
+
+output "alb_zone_id" {
+  description = "Hosted zone ID of the ALB"
+  value       = aws_lb.app_lb.zone_id
+}

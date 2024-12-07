@@ -15,5 +15,17 @@ variable "subnet2_cidr" {
 
 variable "certificate_arn" {
   description = "ARN of the ACM certificate"
-  default     = "arn:aws:acm:eu-west-2:156041431760:certificate/f505279c-6b68-4697-a29e-ae6162cf4f1f"
+  default     = "arn:aws:acm:eu-west-2:156041431760:certificate/0bc8dcde-9c8f-4ac9-bb63-5419c4633090"
+}
+
+variable "domain_name" {
+  description = "The base domain name for the hosted zone"
+  type        = string
+  default     = "najiib.co.uk"
+}
+
+variable "subdomain" {
+  description = "The subdomain to create a record for"
+  type        = string
+  default     = "brickbreaker"
 }
